@@ -1,0 +1,120 @@
+<div class="container">
+  <h2  *ngIf="role =='ROLE_GESTIONNAIRE' ">Welcome,  {{ username }}!</h2>
+  <h2  *ngIf="role =='ROLE_MANAGER' ">Welcome Manager, {{ username }}!</h2>
+  <h2  *ngIf="role =='ROLE_COLLABORATEUR' ">Welcome, {{ username }}!</h2>
+
+  <div class="row mt-4" *ngIf="role =='ROLE_GESTIONNAIRE' ">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Attestations Chart</h5>
+          <canvas baseChart
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [options]="barChartOptions"
+                  [colors]="barChartColors"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType"
+                  [plugins]="barChartPlugins">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6" *ngIf="role =='ROLE_GESTIONNAIRE' ">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Badges Chart</h5>
+          <canvas baseChart
+                  [datasets]="badgeChartData"
+                  [labels]="badgeChartLabels"
+                  [options]="badgeChartOptions"
+                  [colors]="badgeChartColors"
+                  [legend]="badgeChartLegend"
+                  [chartType]="badgeChartType"
+                  [plugins]="badgeChartPlugins">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- New chart for attestation demand -->
+  <div class="row mt-4" *ngIf="role =='ROLE_GESTIONNAIRE' ">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Attestation Demande Chart</h5>
+          <canvas baseChart
+                  [datasets]="attestationDemandChartData"
+                  [labels]="attestationDemandChartLabels"
+                  [options]="attestationDemandChartOptions"
+                  [colors]="attestationDemandChartColors"
+                  [legend]="attestationDemandChartLegend"
+                  [chartType]="attestationDemandChartType"
+                  [plugins]="attestationDemandChartPlugins">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mt-4" *ngIf="role == 'ROLE_MANAGER'">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Types of Leave Chart</h5>
+          <canvas baseChart
+                  [datasets]="congerMaladieChartData"
+                  [labels]="congerMaladieChartLabels"
+                  [options]="congerMaladieChartOptions"
+                  [colors]="congerMaladieChartColors"
+                  [legend]="congerMaladieChartLegend"
+                  [chartType]="congerMaladieChartType"
+                  [plugins]="congerMaladieChartPlugins">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4" *ngIf="role =='ROLE_MANAGER' ">
+
+  <div class="col-md-6"  *ngIf="role == 'ROLE_MANAGER'">
+    
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Leave Types Chart</h5>
+        <canvas baseChart
+                [datasets]="leaveTypesChartData"
+                [labels]="leaveTypesChartLabels"
+                [options]="leaveTypesChartOptions"
+                [colors]="leaveTypesChartColors"
+                [legend]="leaveTypesChartLegend"
+                [chartType]="leaveTypesChartType"
+                [plugins]="leaveTypesChartPlugins">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="row mt-4" *ngIf="role =='ROLE_MANAGER' ">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">QuestionsRH Chart</h5>
+          <canvas baseChart
+                  [datasets]="questionsChartData"
+                  [labels]="questionsChartLabels"
+                  [options]="questionsChartOptions"
+                  [colors]="questionsChartColors"
+                  [legend]="questionsChartLegend"
+                  [chartType]="questionsChartType"
+                  [plugins]="questionsChartPlugins">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+</div>

@@ -1,0 +1,158 @@
+<div class="container-fluid">
+    <div #editModal class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Attestation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form (ngSubmit)="onEditSubmit()">
+                        <div class="form-group">
+                            <label for="editName">Name:</label>
+                            <input type="text" id="editName" [(ngModel)]="editAttestation.name" name="editName" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="editPdfPath">PDF Path:</label>
+                            <input type="file" #fileInput id="file" (change)="onFileSelectedUpdate($event)" class="form-control-file">
+                        </div>
+                       
+                        <button type="submit" class="btn btn-primary" >Save changes</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="page-header-left">
+                    <h3>Attestations
+                        <small>Admin</small>
+                    </h3>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <ol class="breadcrumb pull-right">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i data-feather="home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">Attestations</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <!-- Buttons to toggle forms -->
+    <button class="btn btn-primary" [ngClass]="{ 'active': showUpload }" (click)="showUploadForm()">Upload
+        Attestation</button>
+    <button class="btn btn-primary" [ngClass]="{ 'active': showGeneratePdf }" (click)="showGeneratePdfForm()">Generate
+        PDF</button>
+    <br><br>
+
+    <!-- Upload attestation form -->
+    <div *ngIf="showUpload">
+        <h2>Upload Attestation</h2>
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="file">Select File:</label>
+                <input type="file" #fileInput2 id="file" (change)="onFileSelected($event)" class="form-control-file">
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" [(ngModel)]="name" name="name" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Generate PDF form -->
+    <div *ngIf="showGeneratePdf">
+        <h2>Generate PDF</h2>
+        <form (ngSubmit)="generatePdf()">
+            <div class="form-group">
+                <label for="pdfContent">PDF Content:</label>
+                <textarea id="pdfContent" [(ngModel)]="pdfContent" name="pdfContent" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="pdfName">Name:</label>
+                <input type="text" id="pdfName" [(ngModel)]="pdfName" name="pdfName" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Generate PDF</button>
+        </form>
+    </div>
+  
+
+    <br>
+    <br>
+    <!-- Table to display attestations -->
+    <div *ngIf="attestations.length > 0">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>PDF Path</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let attestation of attestations">
+                        <td>{{ attestation.name }}</td>
+                        <td *ngIf="attestation.pdfPath">{{ attestation.pdfPath }}</td>
+                        <td *ngIf="!attestation.pdfPath">
+                            <span><i class="fas fa-file"></i> No PDF</span>
+                        </td>
+                        <td>
+                            <span [ngClass]="{'text-success': attestation.exist, 'text-danger': !attestation.exist}">
+                                <i class="fas" [ngClass]="attestation.exist ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                                {{ attestation.exist ? 'Exists' : 'Does not exist' }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex flex-wrap">
+                                <button *ngIf="attestation.pdfPath" class="btn btn-primary me-2" (click)="fetchPdf(removePrefix(attestation.pdfPath))">
+                                    View PDF
+                                </button>
+                                <button class="btn btn-secondary me-2" (click)="showEditModal(attestation)">Edit</button>
+                                <button class="btn btn-danger" (click)="deleteAttestation(attestation.id)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div #pdfModal class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;" role="document">
+      <div class="modal-content bg-transparent">
+        <div class="modal-header">
+          <h5 class="modal-title">PDF Viewer</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <iframe width="100%" height="600" frameborder="0"></iframe>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

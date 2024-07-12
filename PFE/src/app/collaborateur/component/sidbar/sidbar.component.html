@@ -1,0 +1,36 @@
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/collaborateur/dashboard">
+        <i class="icon-grid menu-icon"></i>
+        <span class="menu-title">Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item" [class.active]="isUICollapsed">
+      <a class="nav-link" (click)="toggleUICollapse()" aria-expanded="false" aria-controls="ui-basic">
+        <i class="icon-layout menu-icon"></i>
+        <span class="menu-title">Mes données individuelles</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" [class.show]="isUICollapsed" id="ui-basic">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="/collaborateur/badge">Demande de badge</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/collaborateur/Abscences">Mes abscences</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/collaborateur/attestaions">Mes attestations</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/collaborateur/questionsRh">Mes Questions RH</a></li>
+
+        </ul>
+      </div>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/collaborateur/chat">
+        <i class="fas fa-comments menu-icon"></i> <!-- Chat icon -->
+        <span class="menu-title">Chat</span>
+      </a>
+    </li>
+
+
+  </ul>
+</nav>

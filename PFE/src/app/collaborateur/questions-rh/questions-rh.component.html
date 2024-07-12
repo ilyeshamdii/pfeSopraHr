@@ -1,0 +1,112 @@
+<div class="container">
+    <h2>Add Question</h2>
+    <form (ngSubmit)="submitForm()" [formGroup]="questionsForm">
+  
+      <!-- Categories -->
+      <select id="categories" class="form-control" formControlName="categories" (change)="onCategoryChange($event)">
+        <option value="">Select Category</option>
+        <option *ngFor="let category of categoriesList" [value]="category">{{ category }}</option>
+      </select>
+      
+  
+      <!-- Subcategories -->
+      <div class="form-group">
+        <label for="sousCategories">Subcategories</label>
+        <select id="sousCategories" class="form-control" formControlName="sousCategories">
+          <option value="">Select Subcategory</option>
+          <option *ngFor="let subcategory of sousCategoriesList" [value]="subcategory">{{ subcategory }}</option>
+        </select>
+      </div> 
+  
+      <!-- Titre -->
+      <div class="form-group">
+        <label for="titre">Titre</label>
+        <input type="text" id="titre" class="form-control" formControlName="titre" placeholder="Enter Title">
+      </div>
+  
+      <!-- Descriptions -->
+      <div class="form-group">
+        <label for="descriptions">Descriptions</label>
+        <textarea id="descriptions" class="form-control" formControlName="descriptions" rows="4" placeholder="Enter Description"></textarea>
+      </div>
+  
+      <!-- Pieces Joint -->
+      <div class="form-group">
+        <label for="piecesJoint">Pieces Joint</label>
+        <input type="file" id="piecesJoint" class="form-control-file" (change)="onFileSelected($event)" formControlName="piecesJoint" required>
+      </div>
+     
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary" [disabled]="questionsForm.invalid">Submit</button>
+    </form>
+    <button class="btn btn-secondary mt-3" (click)="openQuestionHistory()">View Question History</button>
+
+  </div>
+  
+<!-- Modal for displaying question history -->
+<!-- Question History Modal -->
+<div #questionHistoryModal class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Question History</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div *ngIf="userQuestions.length === 0" class="alert alert-warning" role="alert">
+                  No questions found.
+              </div>
+              <div *ngIf="userQuestions.length > 0">
+                  <table class="table table-striped table-bordered">
+                      <thead>
+                          <tr>
+                              <th>Categories</th>
+                              <th>Subcategories</th>
+                              <th>Title</th>
+                              <th>Description</th>
+                              <th>Attached File</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let question of userQuestions">
+                              <td>{{ question.categories }}</td>
+                              <td>{{ question.sousCategories }}</td>
+                              <td>{{ question.titre }}</td>
+                              <td>{{ question.descriptions }}</td>
+                              <td>
+                                <button *ngIf="question.piecesJoint" class="btn btn-primary me-2" (click)="fetchPdf2(question.piecesJoint)">
+                                  View PDF
+                                </button>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+  <!-- Modal -->
+  <div #pdfModal class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;" role="document">
+      <div class="modal-content bg-transparent">
+        <div class="modal-header">
+          <h5 class="modal-title">PDF Viewer</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <iframe width="100%" height="600" frameborder="0"></iframe>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

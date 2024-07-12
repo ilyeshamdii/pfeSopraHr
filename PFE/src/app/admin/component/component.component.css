@@ -1,0 +1,9 @@
+@import url("../../../assets/admin/css/style.css");
+
+  footer.footer {
+    margin-top: auto;
+    padding: 1rem 0;
+    background: #f8f9fa;
+    border-top: 1px solid #e7e7e7;
+  }
+  

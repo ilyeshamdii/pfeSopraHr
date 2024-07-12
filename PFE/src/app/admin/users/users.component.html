@@ -1,0 +1,138 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<div *ngIf="isLoading" class="spinner"></div>
+
+<div *ngIf="!isLoading" >
+
+
+<div class="container-fluid">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="page-header-left">
+          <h3>User list
+            <small>Multikart Admin panel</small>
+          </h3>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <ol class="breadcrumb pull-right">
+          <li class="breadcrumb-item">
+            <a href="index.html">
+              <i data-feather="home"></i>
+            </a>
+          </li>
+          <li class="breadcrumb-item">Physical</li>
+          <li class="breadcrumb-item active">User list</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <form class="form-inline search-form search-box">
+            <div class="form-group">
+              <input class="form-control-plaintext" type="search" placeholder="Search..">
+            </div>
+          </form>
+
+
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive table-desi">
+            <table class="table all-package table-category " id="editableTable">
+
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>username</th>
+                  <th>status</th>
+                  <th>role</th>
+                  <th>Email</th>
+                  <th>action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr *ngFor="let user of users , let i=index">
+
+                  <td><i class="fas fa-id-badge"></i> {{ user.id }}</td>
+                  <td><i class="fas fa-user"></i> {{ user.username }}</td>
+                  <td>
+                    <i class="fas fa-hourglass-half"></i>
+                    <span *ngIf="user.status === null">en cours</span>
+                    <span *ngIf="user.status !== null">{{ user.status }}</span>
+                  </td>
+                  
+                  <td>
+                    <i class="fas fa-user"></i>
+                    {{ user.roles[0].name }}
+                  </td>
+                  
+
+                  <td><i class="fas fa-envelope"></i> {{user.email }}</td>
+
+
+
+
+                  <td  *ngIf="user.status == null">
+                    <i class="fa fa-check text-success icon-large mr-2"
+                    title="Accept"
+                    (click)="acceptUser(user)"></i>
+                   <i class="fa fa-times text-danger icon-large" 
+                    title="Refuse"
+                    (click)="refuseUser(user)"></i>
+                 
+                  
+                    <td *ngIf="user.status == true" style="color: green;">
+                   Accepter
+                    </td>
+                    <td *ngIf="user.status == false" style="color:red">
+                      Refuser
+                       </td>
+                    <!-- Button trigger modal -->
+                 
+                    <!-- Modal -->
+                 
+                
+                
+
+                  <ng-template #statusIndicator>
+                    <span [ngClass]="{
+                                  'badge-custom-success': user.status === true,
+                                  'badge-custom-danger': user.status === false
+                                }">{{ user.status }}</span>
+                  </ng-template>
+
+
+
+
+
+
+
+
+                </tr>
+
+
+              </tbody>
+            </table>
+
+            <!-- <div *ngIf="badges?.length==0" class="text-center">
+              <h3 style="text-align:center ; color: red;">no data </h3>
+
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

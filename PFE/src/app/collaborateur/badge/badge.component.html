@@ -1,0 +1,162 @@
+<div class="content-wrapper">
+  <div class="row">
+    <div class="col-md-12 grid-margin">
+      <div class="row">
+        <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+          <h3 class="font-weight-bold">Demande Badge</h3>
+          <br>
+          <br>
+          <form #badgeForm="ngForm" (ngSubmit)="badgeForm.valid && createBadge()">
+
+            <div *ngIf="!showBadgeForm">
+              <div class="form-group">
+                <label for="userId">Username:</label>
+                <input type="text" id="userId" class="form-control" [(ngModel)]="Newusername" name="userId"
+                  #usernameCtrl="ngModel" required>
+                <div *ngIf="usernameCtrl.invalid && (usernameCtrl.dirty || usernameCtrl.touched)"
+                  class="alert alert-danger">
+                  Username is required.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="matricule">Matricule:</label>
+                <input type="text" id="matricule" class="form-control" [(ngModel)]="Newmatricule" name="matricule"
+                  #matriculeCtrl="ngModel" required>
+                <div *ngIf="matriculeCtrl.invalid && (matriculeCtrl.dirty || matriculeCtrl.touched)"
+                  class="alert alert-danger">
+                  Matricule is required.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="image">Image:</label>
+                <input 
+                type="file" 
+                id="image" 
+                class="form-control-file" 
+                #fileInput2
+                (change)="onFileSelected($event)" 
+                required>
+              <div *ngIf="!selectedFile && (badgeForm.submitted || badgeForm.dirty)" class="alert alert-danger">
+                Image is required.
+              </div>
+              </div>
+              <button class="btn btn-primary" type="submit" [disabled]="badgeForm.invalid || !selectedFile">Create
+                Badge</button>
+            </div>
+          </form>
+
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div *ngIf="showBadgeRequestPending" class="alert alert-info" role="alert">
+              <p>Votre demande est en cours.</p>
+            </div>
+            <div *ngIf="showBadgeRequestAccepter" class="alert alert-success" role="alert">
+              <p>Votre demande a été acceptée.</p>
+            </div>
+            <div *ngIf="showBadgeRequestRefuse" class="alert alert-danger" role="alert">
+              <p>Votre demande a été refusée.</p>
+              <button class="btn btn-warning" (click)="resetBadgeRequest()">Refaire la demande</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-success" *ngIf="showBadgeRequestAccepter" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">
+            modifier badge
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+</div>
+
+<body>
+  <div class="container1" *ngIf="showBadgeRequestAccepter" id="badge-container">
+    <div class="padding">
+      <div class="font">
+        <div class="top">
+
+          <img *ngIf="badges[0].photos" src="{{ getImageUrlBadge(badges[0].id, badges[0].photos) }}">
+          <img *ngIf="!badges[0].photos" src="{{ getImageUrl() }}">
+
+
+        </div>
+        <div class="bottom">
+          <p>{{ badges[0].username }}</p>
+          <p class="desi">Collaborateur Sopra HR</p>
+
+          <p class="desi"><b>Email : </b></p>
+          <p class="desi">{{ badges[0]?.user?.email }}</p>
+          <p class="desi"><b>Matricule No: </b></p>
+          <p class="desi">{{ badges[0].matricule }}</p>
+
+          <div class="barcode">
+            <img src="assets/badge/qr sample.png">
+          </div>
+          <br>
+          <!-- <p class="no">+91 8980849796</p>
+            <p class="no">part-1,89 harinadad d...sdv..sdf..sfd..sd.</p> -->
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary text-center hide-on-print" *ngIf="!isPrinting" (click)="printBadge()">Imprimer
+      cette badge</button>
+
+  </div>
+
+</body>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  *ngIf="showBadgeRequestAccepter">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">User Information</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Input fields with values from badges -->
+        <div class="mb-3">
+          <label for="emailInput" class="form-label">username</label>
+          <input type="email" class="form-control" id="emailInput" [(ngModel)]="badges[0].username">
+        </div>
+        <div class="mb-3">
+          <label for="matriculeInput" class="form-label">Matricule</label>
+          <input type="text" class="form-control" id="matriculeInput"  [(ngModel)]="badges[0].matricule">
+        </div>
+        <div class="mb-3">
+          <label for="imageInput" class="form-label">Image</label>
+          <input type="file" class="form-control" id="imageInput"  #fileInput (change)="onFileChange($event)">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateBadge()" data-bs-dismiss="modal">Save
+          changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- content-wrapper ends -->
+<!-- partial:partials/_footer.html -->
+
+<!-- partial -->

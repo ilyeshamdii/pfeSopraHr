@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Register</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo" style="text-align: center;">
+                <img src="assets/images.png" alt="logo">
+              </div>
+              <h4>New here?</h4>
+              <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+              <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
+                enctype="multipart/form-data" novalidate>
+
+                <div class="form-group">
+                  <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required
+                    minlength="3" maxlength="20" #username="ngModel" placeholder="username" />
+                  <div  *ngIf="username.errors && f.submitted">
+                    <div *ngIf="username.errors.required" class="alert alert-danger">Username is required</div>
+                    <div *ngIf="username.errors.minlength" class="alert alert-danger">
+                      Username must be at least 3 characters
+                    </div>
+                    <div *ngIf="username.errors.maxlength" class="alert alert-danger">
+                      Username must be at most 20 characters
+                    </div>
+                  </div>
+
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required email
+                    #email="ngModel" placeholder="email" />
+                  <div  *ngIf="email.errors && f.submitted">
+                    <div *ngIf="email.errors.required"class="alert alert-danger" >Email is required</div>
+                    <div *ngIf="email.errors.email" class="alert alert-danger">
+                      Email must be a valid email address
+                    </div>
+                  </div>
+
+
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input [type]="passwordHidden ? 'password' : 'text'" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" placeholder="Password" />
+                    <div class="input-group-append">
+                      <span class="input-group-text" (click)="togglePasswordVisibility()">
+                        <i class="fas" [ngClass]="{'fa-eye-slash': passwordHidden, 'fa-eye': !passwordHidden}"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="alert alert-danger" role="alert" *ngIf="password.errors && f.submitted">
+                    <div *ngIf="password.errors.required">Password is required</div>
+                    <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="role">Role</label>
+                  <select class="form-control" id="role" name="role" [(ngModel)]="form.role" required>
+                      <option value="" disabled selected>Select Role</option>
+                      <option value="ROLE_COLLABORATEUR">COLLABORATEUR</option>
+                      <option value="ROLE_MANAGER">MANAGER</option>
+                  </select>
+                  <div *ngIf="f.form.controls.role.errors && f.submitted" class="alert alert-danger">
+                      Role is required
+                  </div>
+              </div>
+              
+                
+                <div class="mt-3">
+                  <button class="btn btn-primary btn-block">Sign Up</button>
+
+                </div>
+                <div class="text-center mt-4 font-weight-light">
+                  Already have an account? <a routerLink="/login" class="text-primary">Login</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+
+  <!-- endinject -->
+</body>
+
+</html>

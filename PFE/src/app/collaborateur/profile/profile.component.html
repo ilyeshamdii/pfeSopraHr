@@ -1,0 +1,133 @@
+<!-- <div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3>User Profile</h3>
+                </div>
+                <div class="card-body">
+                    <form (ngSubmit)="updateProfile($event.target.photo.files[0])">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="user.email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="photo" class="form-label">Profile Photo</label>
+                            <input type="file" class="form-control" id="photo" name="photo" (change)="onFileSelected($event)">
+                        </div>
+                        <div class="mb-3">
+                            <img [src]="imageUrl" *ngIf="imageUrl" class="img-fluid" alt="Profile Photo">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h3>Change Password</h3>
+                </div>
+                <div class="card-body">
+                    <form (ngSubmit)="changePassword()">
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Current Password</label>
+                            <input type="password" class="form-control" id="currentPassword" name="currentPassword" [(ngModel)]="currentPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">New Password</label>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword" [(ngModel)]="newPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Change Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="container light-style flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-4">
+        Account settings
+    </h4>
+    <div class="card overflow-hidden">
+        <div class="row no-gutters row-bordered row-border-light">
+            <div class="col-md-3 pt-0">
+                <div class="list-group list-group-flush account-settings-links">
+                    <a class="list-group-item list-group-item-action active" data-toggle="list"
+                        href="#account-general">General</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list"
+                        href="#account-change-password">Change password</a>
+                
+                   
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="account-general">
+                        <div class="card-body media align-items-center">
+
+                            <ng-container *ngIf="fileName !== null; else showAvatar">
+                                <img [src]="getImageUrl()" alt="profile" class="d-block ui-w-80" />
+                            </ng-container>
+                            <ng-template #showAvatar>
+                                <div class="avatar-circle">{{ username?.charAt(0) }}{{ username?.charAt(1) }}</div>
+                            </ng-template>
+                            
+
+                         
+                            <div class="media-body ml-4">
+                               &nbsp;
+                            </div>
+                        </div>
+                        <hr class="border-light m-0">
+                        <div class="card-body">
+                            <form (ngSubmit)="updateProfile($event.target.photo.files[0])">
+
+                            <div class="form-group">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Profile Photo</label>
+                                <input type="file" class="form-control" id="photo" name="photo" (change)="onFileSelected($event)">
+                            </div>
+                            <div class="mb-3">
+                                <img [src]="imageUrl" *ngIf="imageUrl" class="img-fluid" alt="Profile Photo">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">E-mail</label>
+                                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="user.email" required>
+                               
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+
+                        </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="account-change-password">
+                        <div class="card-body pb-2">
+                            <form (ngSubmit)="changePassword()">
+
+                            <div class="form-group">
+                                <label class="form-label">Current password</label>
+                                <input type="password" class="form-control" id="currentPassword" name="currentPassword" [(ngModel)]="currentPassword" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">New password</label>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword" [(ngModel)]="newPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Change Password</button>
+
+                        </form>
+                        </div>
+                    </div>
+             
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

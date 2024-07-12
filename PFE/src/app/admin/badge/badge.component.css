@@ -1,0 +1,18 @@
+.badge-custom-success {
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .badge-custom-danger {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  .icon-large {
+    font-size: 24px; /* Adjust the font size as needed */
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+  

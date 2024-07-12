@@ -1,0 +1,18 @@
+.message-delete-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .delete-button {
+    align-self: flex-end;
+  }
+
+  .notification-dropdown {
+    max-height: 300px; /* Adjust the max-height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+.avatar-img {
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  border-radius: 50%; /* Circular shape */
+}

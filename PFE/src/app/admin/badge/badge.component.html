@@ -1,0 +1,131 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<div class="container-fluid">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="page-header-left">
+          <h3>badge list
+            <small>Multikart Admin panel</small>
+          </h3>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <ol class="breadcrumb pull-right">
+          <li class="breadcrumb-item">
+            <a href="index.html">
+              <i data-feather="home"></i>
+            </a>
+          </li>
+          <li class="breadcrumb-item">Physical</li>
+          <li class="breadcrumb-item active">badge list</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <form class="form-inline search-form search-box">
+            <div class="form-group">
+              <input class="form-control-plaintext" type="search" placeholder="Search..">
+            </div>
+          </form>
+
+
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive table-desi">
+            <table class="table all-package table-category " id="editableTable">
+
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>username</th>
+                  <th>status</th>
+                  <th>Email</th>
+
+                  <th>matricule</th>
+
+                  <th>action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr *ngFor="let badge of badges , let i=index">
+
+                  <td><i class="fas fa-id-badge"></i> {{ badge.id }}</td>
+                  <td><i class="fas fa-user"></i> {{ badge.user.username }}</td>
+                  <td>
+                    <ng-container *ngIf="badge.status === 'en cours'; else otherStatus">
+                      <i class="fas fa-hourglass-half"></i> {{ badge.status }}
+                    </ng-container>
+                    <ng-template #otherStatus>
+                      <ng-container *ngIf="badge.status === 'accepter'">
+                        <i class="fas fa-check-circle"></i> {{ badge.status }}
+                      </ng-container>
+                      <ng-container *ngIf="badge.status === 'refuser'">
+                        <i class="fas fa-times-circle"></i> {{ badge.status }}
+                      </ng-container>
+                    </ng-template>
+                  </td>
+                  <td><i class="fas fa-envelope"></i> {{ badge.user.email }}</td>
+                  <td><i class="fas fa-address-card"></i> {{ badge.matricule }}</td>
+
+
+
+
+                  <td>
+                    <ng-container
+                      *ngIf="badge.status !== 'accepter' && badge.status !== 'refuser'; else statusIndicator">
+                      <i class="fa fa-check text-success icon-large mr-2"
+                        (click)="acceptBadge(badge.id, badge.user.username)" title="Accept"></i>
+                      <i class="fa fa-times text-danger icon-large" (click)="refuseBadge(badge.id, badge.user.username)"
+                        title="Refuse"></i>
+
+                    </ng-container>
+                  <td>
+                    <!-- Button trigger modal -->
+                 
+                    <!-- Modal -->
+                 
+                  </td>
+                  <ng-template #statusIndicator>
+                    <span [ngClass]="{
+                                  'badge-custom-success': badge.status === 'accepter',
+                                  'badge-custom-danger': badge.status === 'refuser'
+                                }">{{ badge.status }}</span>
+                  </ng-template>
+
+
+
+
+
+
+
+
+
+                </tr>
+
+
+              </tbody>
+            </table>
+
+            <div *ngIf="badges?.length==0" class="text-center">
+              <h3 style="text-align:center ; color: red;">no data </h3>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

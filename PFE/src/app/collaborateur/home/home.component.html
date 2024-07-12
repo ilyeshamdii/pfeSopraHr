@@ -1,0 +1,238 @@
+<div class="content-wrapper">
+  <div class="row">
+    <div class="col-md-12 grid-margin">
+      <div class="row">
+        <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+          <h3 class="font-weight-bold">Welcome {{username}}</h3>
+        </div>
+        <div class="col-12 col-xl-4">
+          <div class="justify-content-end d-flex">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
+
+
+
+
+
+
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Leave Request Counts</p>
+          <div class="d-flex flex-wrap mb-5">
+            <div class="mr-5 mt-3">
+              <p class="text-muted">In Progress</p>
+              <h3 class="text-primary fs-30 font-weight-medium">{{ inProgressCount }}</h3>
+            </div>
+            <div class="mr-5 mt-3">
+              <p class="text-muted">Accepted</p>
+              <h3 class="text-primary fs-30 font-weight-medium">{{ acceptedCount }}</h3>
+            </div>
+            <div class="mr-5 mt-3">
+              <p class="text-muted">Refused</p>
+              <h3 class="text-primary fs-30 font-weight-medium">{{ refusedCount }}</h3>
+            </div>
+          </div>
+          <!-- Progress Bars with Dynamic Attributes -->
+          <div class="progress mb-3">
+            <div class="progress-bar bg-primary" role="progressbar"
+              [style.width.%]="inProgressCount / (inProgressCount + acceptedCount + refusedCount) * 100"
+              [attr.aria-valuenow]="inProgressCount" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="progress mb-3">
+            <div class="progress-bar bg-success" role="progressbar"
+              [style.width.%]="acceptedCount / (inProgressCount + acceptedCount + refusedCount) * 100"
+              [attr.aria-valuenow]="acceptedCount" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="progress mb-3">
+            <div class="progress-bar bg-danger" role="progressbar"
+              [style.width.%]="refusedCount / (inProgressCount + acceptedCount + refusedCount) * 100"
+              [attr.aria-valuenow]="refusedCount" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Badge Request Counts</p>
+          <div class="d-flex flex-wrap mb-5">
+            <div class="mr-5 mt-3">
+              <p class="text-muted">Accepted</p>
+              <h3 class="text-primary fs-30 font-weight-medium">{{ acceptedCountBadge }}</h3>
+            </div>
+            <div class="mr-5 mt-3">
+              <p class="text-muted">Refused</p>
+              <h3 class="text-primary fs-30 font-weight-medium">{{ refusedCountBadge }}</h3>
+            </div>
+            <div class="mr-5 mt-3">
+              <p class="text-muted">In Progress</p>
+              <h3 class="text-primary fs-30 font-weight-medium">{{ inProgressCountBadge }}</h3>
+            </div>
+          </div>
+          <div class="progress mb-3">
+
+            <div class="progress-bar bg-primary" role="progressbar"
+              [style.width.%]="(inProgressCountBadge / (inProgressCountBadge + acceptedCountBadge + refusedCountBadge)) * 100"
+              [attr.aria-valuenow]="inProgressCountBadge" aria-valuemin="0" aria-valuemax="100">
+            </div>
+          </div>
+          <div class="progress mb-3">
+            <div class="progress-bar bg-success" role="progressbar"
+              [style.width.%]="(acceptedCountBadge / (inProgressCountBadge + acceptedCountBadge + refusedCountBadge)) * 100"
+              [attr.aria-valuenow]="acceptedCountBadge" aria-valuemin="0" aria-valuemax="100">
+            </div>
+          </div>
+          <div class="progress mb-3">
+
+            <div class="progress-bar bg-danger" role="progressbar"
+              [style.width.%]="(refusedCountBadge / (inProgressCountBadge + acceptedCountBadge + refusedCountBadge)) * 100"
+              [attr.aria-valuenow]="refusedCountBadge" aria-valuemin="0" aria-valuemax="100">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Demande Attestation Counts</p>
+          <div class="d-flex flex-wrap mb-5">
+            <div class="mr-5 mt-3">
+              <p class="text-muted">En Cours</p>
+              <h3 class="text-primary fs-30 font-weight-medium">{{ enCoursCount }}</h3>
+            </div>
+            <div class="mr-5 mt-3">
+              <p class="text-muted">Accepted</p>
+              <h3 class="text-primary fs-30 font-weight-medium">{{ accepterCount }}</h3>
+            </div>
+            <div class="mr-5 mt-3">
+              <p class="text-muted">Refused</p>
+              <h3 class="text-primary fs-30 font-weight-medium">{{ refuserCount }}</h3>
+            </div>
+          </div>
+          <div class="progress mb-3">
+
+            <div class="progress-bar bg-primary" role="progressbar"
+              [style.width.%]="(enCoursCount / (enCoursCount + accepterCount + refuserCount)) * 100"
+              [attr.aria-valuenow]="enCoursCount" aria-valuemin="0" aria-valuemax="100">
+            </div>
+          </div>
+          <div class="progress mb-3">
+
+            <div class="progress-bar bg-success" role="progressbar"
+              [style.width.%]="(accepterCount / (enCoursCount + accepterCount + refuserCount)) * 100"
+              [attr.aria-valuenow]="accepterCount" aria-valuemin="0" aria-valuemax="100">
+            </div>
+          </div>
+          <div class="progress mb-3">
+
+            <div class="progress-bar bg-danger" role="progressbar"
+              [style.width.%]="(refuserCount / (enCoursCount + accepterCount + refuserCount)) * 100"
+              [attr.aria-valuenow]="refuserCount" aria-valuemin="0" aria-valuemax="100">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-6 grid-margin stretch-card">
+
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Message Counts</p>
+          <div class="d-flex flex-wrap mb-5">
+            <div class="mr-5 mt-3">
+              <p class="text-muted">Total Messages</p>
+              <h3 class="text-primary fs-30 font-weight-medium">{{ messageCount }}</h3>
+            </div>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-info" role="progressbar"
+              [style.width]="calculateProgress(messageCount, totalMessages)" aria-valuemin="0">
+            </div>
+          </div>
+          <div class="mt-3">
+            <button class="btn btn-primary btn-sm" (click)="loadMessages()">Refresh</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="col-md-6 grid-margin stretch-card">
+
+
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Badge Statistics</p>
+          <div style="display: block;">
+            <canvas baseChart [datasets]="badgeChartData" [labels]="badgeChartLabels" [options]="badgeChartOptions"
+              [colors]="badgeChartColors" [legend]="badgeChartLegend" [chartType]="badgeChartType"
+              [plugins]="badgeChartPlugins">
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-6 grid-margin stretch-card">
+
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Leave Request Counts</p>
+          <div style="display: block;">
+            <canvas baseChart [datasets]="requestChartData" [labels]="requestChartLabels"
+              [options]="requestChartOptions" [colors]="requestChartColors" [legend]="requestChartLegend"
+              [chartType]="requestChartType" [plugins]="requestChartPlugins">
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Question Rh</p>
+          <div style="display: block;">
+            <canvas baseChart [datasets]="questionCountData" [labels]="questionCountLabels" [options]="chartOptions"
+              [legend]="chartLegend" [chartType]="chartType" [plugins]="chartPlugins">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Demande Attestations Statistics</p>
+          <div style="display: block;">
+            <canvas baseChart [datasets]="demandeChartData" [labels]="demandeChartLabels" [options]="demandeChartOptions"
+              [colors]="demandeChartColors" [legend]="demandeChartLegend" [chartType]="demandeChartType"
+              [plugins]="demandeChartPlugins">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</div>

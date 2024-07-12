@@ -1,0 +1,298 @@
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-8 text-center p-0 mt-3 mb-2">
+         
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <div class="row justify-content-center mt-3">
+                    <div class="col-md-6">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Leave Days (Solde)</h5>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <p class="card-text mb-0">You have <strong>{{ totalLeaveDays }}</strong> leave days remaining.</p>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Display request counts -->
+                <div class="container-fluid bg-light mt-3 mb-3 p-3 rounded">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="request-counts">
+                                <p class="in-progress" (click)="showModal('IN_PROGRESS')">In Progress: {{
+                                    inProgressCount }}</p>
+                                <p class="accepted" (click)="showModal('ACCEPTED')">Accepted: {{ acceptedCount }}</p>
+                                <p class="refused" (click)="showModal('REFUSED')">Refused: {{ refusedCount }}</p>
+                            </div>
+
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="btn custom-primary" (click)="showModal('IN_PROGRESS')"
+                                    data-bs-toggle="modal" data-bs-target="#inProgressModal">            <span class="text-white fw-bold">Show In Progress</span>
+                                </button>
+                                
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-success" (click)="showModal('ACCEPTED')"
+                                        data-bs-toggle="modal" data-bs-target="#acceptedModal">            <span class="text-white fw-bold" (click)="showModal('ACCEPTED')" data-bs-toggle="modal" data-bs-target="#acceptedModal">Show Accepted</span>
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn custom-danger" (click)="showModal('REFUSED')"
+                                        data-bs-toggle="modal" data-bs-target="#refusedModal">            <span class="text-white fw-bold">Show Refused</span>
+                                    </button>
+                                </div>
+                                
+                            </div>
+                            <div class="col">
+                                <!-- Button to refresh and go to calendar with Font Awesome icon -->
+                                <button class="btn btn-info" (click)="refreshAndNavigateToCalendar()">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span class="text-white fw-bold">Go to Calendar</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+       
+            
+                <h2><strong>Je suis malade</strong></h2>
+                <div class="row">
+                    <div class="col-md-12 mx-0">
+                        <form id="msform" (ngSubmit)="submitForm()">
+                            <!-- progressbar -->
+                            <ul id="progressbar">
+                                <li  class="active"  id="account"><strong>Type de congé</strong></li> <!-- New step for type of leave -->
+                                <li id="account"><strong>Je préviens</strong></li>
+                                <li id="personal"><strong>je déclare un arret</strong></li>
+                                <li id="payment"><strong>je justifie</strong></li>
+                                <li id="confirm"><strong>Finish</strong></li>
+                            </ul>
+                            <!-- fieldsets -->
+                           
+                            <fieldset id="leave-type-fieldset">
+                                <div class="form-card">
+                                  <label for="congerType">Type de congé :</label>
+                                  <select class="form-control" name="congerType" id="congerType" [(ngModel)]="typeConger" required>
+                                    <option value="" disabled selected>Select a type</option>
+                                    <option value="conger-maladie">Congé maladie</option>
+                                    <option value="conger-payer">Congé payé</option>
+                                  </select>
+                                </div>
+                                <input type="button" name="next" class="next action-button" value="Next Step" />
+                              </fieldset>
+                              
+                            
+                            <fieldset>
+                                <div class="form-card">
+                                    <div class="avatar-container">
+                                        <ng-container *ngIf="fileName !== null; else showAvatar">
+                                            <img [src]="getImageUrl()" alt="profile" class="avatar-img" />
+                                        </ng-container>
+                                        <ng-template #showAvatar>
+                                            <div class="avatar">{{ username?.charAt(0) }}{{ username?.charAt(1) }}</div>
+                                        </ng-template>
+                                    </div>
+                                    <textarea name="message"
+                                        placeholder="Bonjour, Je suis malade aujourd'hui. Je vous donne plus de précisions après ma visite chez le médecin."
+                                        [(ngModel)]="message"></textarea>
+
+                                </div>
+                                <input type="button" name="previous" class="previous action-button-previous"
+                                    value="Previous" />
+                                <input type="button" name="next" class="next action-button" value="Next Step" />
+                            </fieldset>
+
+
+                            <fieldset>
+                                <div class="form-card">
+                                    <label for="start_date">Depuis:</label>
+                                    <input type="date" id="start_date" name="start_date" [(ngModel)]="start_date" [min]="minDate" />
+                                    <label for="end_date">Jusqu'au:</label>
+                                    <input type="date" id="end_date" name="end_date" [(ngModel)]="end_date" [min]="start_date" />
+                                  </div>
+                                  <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                                  <input type="button" name="next" class="next action-button" value="Next Step" />
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-card">
+                                    <label for="justificatif">Justificatif:</label>
+                                    <input type="file" name="justificatif" id="justificatif"
+                                        (change)="onFileSelected($event)" />
+                                </div>
+                                <input type="button" name="previous" class="previous action-button-previous"
+                                    value="Previous" />
+                                <input type="submit" class="next action-button" value="Confirm" />
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-card">
+                                    <h2 class="fs-title text-center">Leave Request Submitted</h2>
+                                    <br><br>
+                                   
+                                    <br><br>
+                                    <div class="row justify-content-center">
+                                        <div class="col-7 text-center">
+                                            <p>{{ responseMessage }}</p>
+
+                                                <button class="btn btn-info" (click)="refreshComponent()">
+                                                    <i class="fas fa-sync-alt"></i> <!-- Font Awesome icon for refresh -->
+                                                    <span class="text-white fw-bold">Refresh</span>
+                                                </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- Modals -->
+<div class="modal fade" id="inProgressModal" tabindex="-1" aria-labelledby="inProgressModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg"> <!-- Add modal-lg class here -->
+        <div class="modal-content">
+            <!-- Modal header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="inProgressModalLabel">In Progress Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table" *ngIf="inProgressData.length > 0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Message</th>
+                                <th>Date Début</th>
+                                <th>Date Fin</th>
+                                <th>Justification Path</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of inProgressData">
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.message }}</td>
+                                <td>{{ item.dateDebut }}</td>
+                                <td>{{ item.dateFin }}</td>
+                                <td>
+                                    <a [href]="'http://localhost:8080/uploads/' + item.justificationPath"
+                                        target="_blank" class="justification-link">View Justification</a>
+                                </td>
+                                <td>{{ item.status }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="inProgressData.length === 0" class="text-center">
+                        <p>No data available</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="acceptedModal" tabindex="-1" aria-labelledby="acceptedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg"> <!-- Add modal-lg class here -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="acceptedModalLabel">Accepted Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table" *ngIf="acceptedData.length > 0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Message</th>
+                                <th>Date Début</th>
+                                <th>Date Fin</th>
+                                <th>Justification Path</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of acceptedData">
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.message }}</td>
+                                <td>{{ item.dateDebut }}</td>
+                                <td>{{ item.dateFin }}</td>
+                                <td>
+                                    <a [href]="'http://localhost:8080/uploads/' + item.justificationPath"
+                                        target="_blank" class="justification-link">View Justification</a>
+                                </td>                                <td>{{ item.status }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="acceptedData.length === 0" class="text-center">
+                        <p>No data available</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="refusedModal" tabindex="-1" aria-labelledby="refusedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg"> <!-- Add modal-lg class here -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="refusedModalLabel">Refused Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table" *ngIf="refusedData.length > 0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Message</th>
+                                <th>Date Début</th>
+                                <th>Date Fin</th>
+                                <th>Justification Path</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of refusedData">
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.message }}</td>
+                                <td>{{ item.dateDebut }}</td>
+                                <td>{{ item.dateFin }}</td>
+                                <td>
+                                    <a [href]="'http://localhost:8080/uploads/' + item.justificationPath"
+                                        target="_blank" class="justification-link">View Justification</a>
+                                </td>                                <td>{{ item.status }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="refusedData.length === 0" class="text-center">
+                        <p>No data available</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

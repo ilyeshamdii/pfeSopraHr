@@ -1,0 +1,228 @@
+
+*{
+  margin: 00px;
+  padding: 00px;
+  
+}
+.menu-title {
+    white-space: normal; /* Allow the text to wrap to the next line if needed */
+  }
+
+  /* badge.component.css */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.badge-info {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+}
+
+
+
+/* // css of badge */
+
+.container1 {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e6ebe0;
+  flex-direction: row;
+  flex-flow: wrap;
+
+}
+
+.font{
+  height: 375px;
+  width: 250px;
+  position: relative;
+  border-radius: 10px;
+}
+
+.top{
+  height: 30%;
+  width: 100%;
+  background-color: #8338ec;
+  position: relative;
+  z-index: 5;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.bottom{
+  height: 70%;
+  width: 100%;
+  background-color: white;
+  position: absolute;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.top img{
+  height: 100px;
+  width: 100px;
+  background-color: #e6ebe0;
+  border-radius: 10px;
+  position: absolute;
+  top:60px;
+  left: 75px;
+}
+.bottom p{
+  position: relative;
+  top: 60px;
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 20px;
+  text-emphasis: spacing;
+}
+.bottom .desi{
+  font-size:12px;
+  color: grey;
+  font-weight: normal;
+}
+.bottom .no{
+  font-size: 15px;
+  font-weight: normal;
+}
+.barcode img
+{
+  height: 65px;
+  width: 65px;
+  text-align: center;
+  margin: 5px;
+}
+.barcode{
+  text-align: center;
+  position: relative;
+  top: 70px;
+}
+
+.back
+{
+  height: 375px;
+  width: 250px;
+  border-radius: 10px;
+  background-color: #8338ec;
+
+}
+.qr img{
+  height: 80px;
+  width: 100%;
+  margin: 20px;
+  background-color: white;
+}
+.Details {
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 25px;
+}
+
+
+.details-info{
+  color: white;
+  text-align: left;
+  padding: 5px;
+  line-height: 20px;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 20px;
+  line-height: 22px;
+}
+
+.logo {
+  height: 40px;
+  width: 150px;
+  padding: 40px;
+}
+
+.logo img{
+  height: 100%;
+  width: 100%;
+  color: white ;
+
+}
+.padding{
+  padding-right: 20px;
+}
+
+@media screen and (max-width:400px)
+{
+  .container1{
+      height: 130vh;
+  }
+  .container1 .front{
+      margin-top: 50px;
+  }
+}
+@media screen and (max-width:600px)
+{
+  .container1{
+      height: 130vh;
+  }
+  .container1 .front{
+      margin-top: 50px;
+  }
+
+  
+}
+
+/* Styles for printing */
+/* Styles for printing */
+@media print {
+  body {
+    background-color: white;
+  }
+
+  .container1 {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    color: black;
+    font-family: Arial, sans-serif;
+    border: none;
+    box-shadow: none;
+  }
+
+  .qr img{
+    height: 80px;
+    width: 100%;
+    margin: 20px;
+    background-color: white;
+  }
+
+  .hide-on-print {
+    display: none;
+  }
+}
+

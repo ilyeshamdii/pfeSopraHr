@@ -1,0 +1,30 @@
+.menu-title {
+    white-space: normal; /* Allow the text to wrap to the next line if needed */
+  }
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.text-muted {
+    font-size: 0.9rem;
+}
+
+.text-primary {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.progress {
+    height: 1rem;
+    margin-top: 1rem;
+}
+
+.progress-bar {
+    height: 100%;
+}
+
+.btn {
+    margin-top: 1rem;
+}

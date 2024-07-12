@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row">
+        <!-- FullCalendar component with custom styling -->
+        <div class="col fullcalendar-column">
+            <full-calendar [options]="calendarOptions"></full-calendar>
+        </div>
+        <!-- Button to go to the specified URL -->
+        <div class="col">
+            <a class="btn btn-info text-white" [routerLink]="['/collaborateur', 'Abscences']">
+                Go to Absences
+            </a>
+            
+        </div>
+    </div>
+</div>

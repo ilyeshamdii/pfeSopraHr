@@ -1,0 +1,176 @@
+<!-- Include the Font Awesome stylesheet -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<div *ngIf="isLoading" class="spinner"></div>
+<div *ngIf="!isLoading">
+
+<div class="container-fluid">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="page-header-left">
+          <h3>Conger Maldier List
+          </h3>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <ol class="breadcrumb pull-right">
+          <li class="breadcrumb-item">
+            <a href="index.html">
+              <i data-feather="home"></i>
+            </a>
+          </li>
+          <li class="breadcrumb-item">Physical</li>
+          <li class="breadcrumb-item active">Conger Maldier List</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+         
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive table-desi">
+            <table class="table all-package table-category " id="editableTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Message</th>
+                  <th>Status</th>
+                 
+                  <th>User Name</th>
+                  
+                  <th>Type de Congé</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let conger of congerMaldierList, let i = index">
+                  <td><i class="fas fa-id-badge"></i> {{ conger.id }}</td>
+                  <td>{{ conger.message }}</td>
+                  <td>
+                    <ng-container *ngIf="conger.status === 'IN_PROGRESS'; else otherStatus">
+                      <i class="fas fa-hourglass-half"></i> {{ conger.status }}
+                    </ng-container>
+                    <ng-template #otherStatus>
+                      <ng-container *ngIf="conger.status === 'ACCEPTED'">
+                        <i class="fas fa-check-circle"></i> {{ conger.status }}
+                      </ng-container>
+                      <ng-container *ngIf="conger.status === 'REFUSED'">
+                        <i class="fas fa-times-circle"></i> {{ conger.status }}
+                      </ng-container>
+                    </ng-template>
+                  </td>
+                  <td><i class="fas fa-user"></i> {{ conger.user.username }}</td>
+                  
+                  <td>{{ conger.typeConger }}</td>
+                  <td *ngIf="conger.status === 'ACCEPTED'" style="color:green">
+                    Accepter <i class="fas fa-dollar-sign text-info icon-large" (click)="showDonnerDetails(conger.id)" title="Details"></i> <i class="fas fa-arrow-alt-circle-right text-info icon-large" (click)="showDonnerDetails2(conger.id)" title="Details"></i>
+                  </td>
+                  <td *ngIf="conger.status === 'REFUSED'" style="color:red">
+                    Refuser  <i class="fas fa-dollar-sign text-info icon-large" (click)="showDonnerDetails(conger.id)" title="Details"></i> <i class="fas fa-arrow-alt-circle-right text-info icon-large" (click)="showDonnerDetails2(conger.id)" title="Details"></i>
+                  </td>
+                  
+                   
+                  <td *ngIf="conger.status === 'IN_PROGRESS'">
+                    <ng-container>
+                      <i class="fa fa-check text-success icon-large mr-2" (click)="updateStatus(conger.id, 'ACCEPTED')" title="Accept"></i>
+                      <i class="fa fa-times text-danger icon-large" (click)="updateStatus(conger.id, 'REFUSED')" title="Refuse"></i>
+                      <i class="fas fa-dollar-sign text-info icon-large" (click)="showDonnerDetails(conger.id)" title="Details"></i>
+                      <i class="fas fa-arrow-alt-circle-right text-info icon-large" (click)="showDonnerDetails2(conger.id)" title="Details"></i>
+                    </ng-container>
+                  </td>
+                  <!-- <td>
+                    <i class="fas fa-dollar-sign text-info icon-large" (click)="showDonnerDetails(conger.id)" title="Details"></i>
+                  </td>
+                  <td>
+                    <i class="fas fa-arrow-alt-circle-right text-info icon-large" (click)="showDonnerDetails2(conger.id)" title="Details"></i>
+                  </td> -->
+
+                </tr>
+              </tbody>
+            </table>
+
+            <div *ngIf="congerMaldierList?.length == 0" class="text-center">
+              <h3 style="text-align: center; color: red;">No data</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for displaying Donner details -->
+<div class="modal fade" id="donnerModal" tabindex="-1" role="dialog" aria-labelledby="donnerModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="donnerModalLabel">Donner Details</h5>
+        <button type="button" class="close" onclick="$('#donnerModal').modal('hide');" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ng-container *ngIf="donners">
+          <div class="row">
+            <div class="col">
+              <p><strong>Duration in Days:</strong></p>
+            </div>
+            <div class="col">
+              <p>{{ donners.durationInDays }}</p>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="$('#donnerModal').modal('hide');" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="donnerModall" tabindex="-1" role="dialog" aria-labelledby="donnerModalLabell" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="donnerModalLabell">Donner Details</h5>
+        <button type="button" class="close" onclick="$('#donnerModall').modal('hide');" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ng-container *ngIf="selectedConger">
+          <p><strong>ID:</strong> {{ selectedConger.id }}</p>
+          <p><strong>Message:</strong> {{ selectedConger.message }}</p>
+          <p><strong>Status:</strong> {{ selectedConger.status }}</p>
+          <p><strong>User Email:</strong> {{ selectedConger.user.email }}</p>
+          <p><strong>User Name:</strong> {{ selectedConger.user.username }}</p>
+          <p><strong>Start Date:</strong> {{ selectedConger.dateDebut }}</p>
+          <p><strong>End Date:</strong> {{ selectedConger.dateFin }}</p>
+          <p><strong>Justification Path:</strong> <a [href]="'http://localhost:8080/uploads/' + selectedConger.justificationPath" target="_blank">View Justification</a></p>
+          <p><strong>Type de Congé:</strong> {{ selectedConger.typeConger }}</p>
+        
+        </ng-container>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="$('#donnerModall').modal('hide');" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+

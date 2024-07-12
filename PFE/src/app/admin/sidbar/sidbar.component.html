@@ -1,0 +1,155 @@
+  <!-- Page Sidebar Start
+
+  <div class="main-header-left d-none d-lg-block">
+    <div class="logo-wrapper">
+        <br>
+        <br>
+        <a href="index.html">
+            <img class="d-none d-lg-block blur-up lazyloaded "src="assets/images.png" width="100px" height="100px" alt="">
+        </a>
+    </div>
+</div>
+<div class="sidebar custom-scrollbar">
+    <a href="javascript:void(0)" class="sidebar-back d-lg-none d-block"><i class="fa fa-times"
+            aria-hidden="true"></i></a>
+    <div class="sidebar-user">
+        <img class="img-60" src="assets/ilyes.jpg" alt="#">
+        <div>
+            <h6 class="f-14">{{username}}</h6>
+            <p>{{roles}}</p>
+        </div>
+    </div>
+    <ul class="sidebar-menu">
+        <li>
+            <a class="sidebar-header" routerLink="dashboard"  >
+                <i data-feather="home"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a class="sidebar-header" routerLink="badge" >
+                <i data-feather="box"></i>
+                <span>Badge</span>
+
+            </a>
+
+
+        </li>
+        <li>
+            <a class="sidebar-header" routerLink="users" >
+                <i data-feather="box"></i>
+                <span>Users</span>
+
+            </a>
+
+
+        </li>
+        <li>
+            <a class="sidebar-header"  routerLink="absences" >
+                <i data-feather="box"></i>
+                <span>Absences</span>
+
+            </a>
+
+
+        </li>
+
+            
+        <li>
+            <a class="sidebar-header"  routerLink="QuestionsRh" >
+                <i data-feather="box"></i>
+                <span>Questions RH</span>
+
+            </a>
+
+
+        </li>
+        <li>
+            <a class="sidebar-header"  routerLink="attestations" >
+                <i data-feather="box"></i>
+                <span>Attestations</span>
+
+            </a>
+
+
+        </li>
+
+    
+
+     
+
+      
+
+      
+
+     
+
+      
+     
+
+    </ul>
+</div> -->
+
+
+
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item" [ngClass]="{'active': isActive('/dashboard')}">
+      <a class="nav-link" routerLink="/dashboard">
+        <i class="icon-grid menu-icon"></i>
+        <span class="menu-title">Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="role && role.includes('ROLE_GESTIONNAIRE')" [ngClass]="{'active': isActive('/badge')}">
+      <a class="nav-link" routerLink="/badge">
+        <i class="fas fa-id-badge menu-icon"></i> <!-- Replace icon class here -->
+        <span class="menu-title">Badge</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="role && role.includes('ROLE_GESTIONNAIRE')" [ngClass]="{'active': isActive('/users')}">
+      <a class="nav-link" routerLink="/users">
+        <i class="fas fa-users menu-icon"></i> <!-- Replace icon class here -->
+        <span class="menu-title">Users</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="role && role.includes('ROLE_MANAGER')" [ngClass]="{'active': isActive('/absences')}">
+      <a class="nav-link" routerLink="/absences">
+        <i class="fas fa-calendar-alt menu-icon"></i> <!-- Replace icon class here -->
+        <span class="menu-title">Absences</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="role && role.includes('ROLE_MANAGER')" [ngClass]="{'active': isActive('/QuestionsRh')}">
+      <a class="nav-link" routerLink="/QuestionsRh">
+        <i class="fas fa-question-circle menu-icon"></i> <!-- Replace icon class here -->
+        <span class="menu-title">Questions RH</span>
+      </a>
+    </li>
+    <li class="nav-item"  *ngIf="role && role.includes('ROLE_GESTIONNAIRE')"  [ngClass]="{'active': isActive('/attestations')}">
+      <a class="nav-link" routerLink="/attestations">
+        <i class="far fa-file-alt menu-icon"></i> <!-- Replace icon class here -->
+        <span class="menu-title">Attestations</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="role && role.includes('ROLE_GESTIONNAIRE')" [ngClass]="{'active': isActive('/demandeattestations')}">
+      <a class="nav-link" routerLink="/demandeattestations">
+        <i class="fas fa-file-signature menu-icon"></i> <!-- Use the appropriate class for the new icon -->
+        <span class="menu-title">demande attestations</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="role && role.includes('ROLE_GESTIONNAIRE')" [ngClass]="{'active': isActive('/chat')}">
+      <a class="nav-link" routerLink="/chat" (click)="handleClickOnChatIcon()">
+        <i class="fas fa-comments menu-icon"></i> <!-- Chat icon -->
+        <span class="menu-title">Chat</span>
+        <span class="badge badge-pill badge-danger">{{ unreadMessageCount }}</span> <!-- Badge for unread count -->
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="role && role.includes('ROLE_MANAGER')" [ngClass]="{'active': isActive('/ChatManager')}">
+      <a class="nav-link" routerLink="/ChatManager" >
+        <i class="fas fa-comments menu-icon"></i> <!-- Chat icon -->
+        <span class="menu-title">Chat</span>
+      </a>
+    </li>
+  </ul>
+</nav>
